@@ -1,6 +1,3 @@
-from string import ascii_lowercase
-
-
 def num_op(string1, string2):
     """Returns the number of operations needed to convert 'string1' to 'string2' (both representing a sequnce of numbers)"""
 
