@@ -15,10 +15,10 @@ def num_op(string1, string2):
                     continue
                 elif i == 0 and j != 0:
                     M[i][j] = j  # M[-1][j-1]
-                    continue    
+                    continue
                 elif i != 0 and j == 0:
                     M[i][j] = i  # M[j-1][-1]
-                    continue    
+                    continue
                 else:
                     M[i][j] = M[i - 1][j - 1]
             else:
@@ -26,13 +26,15 @@ def num_op(string1, string2):
                     M[i][j] = 2  # min(1 + M[0][-1], 1 + M[-1][0])
                     continue
                 elif i == 0 and j != 0:
-                    M[i][j] = min(2 + j, 1 + M[i][j - 1])  # min(1 + M[-1][j], 1 + M[i][j-1])
-                    continue    
+                    # min(1 + M[-1][j], 1 + M[i][j-1])
+                    M[i][j] = min(2 + j, 1 + M[i][j - 1])
+                    continue
                 elif i != 0 and j == 0:
-                    M[i][j] = min(2 + i, 1 + M[i - 1][j])  # min(1 + M[i][-1], 1 + M[i-1][j])
-                    continue    
+                    # min(1 + M[i][-1], 1 + M[i-1][j])
+                    M[i][j] = min(2 + i, 1 + M[i - 1][j])
+                    continue
                 else:
-                    M[i][j] = min(1 + M[i - 1][j], 1 + M[i][j - 1])        
+                    M[i][j] = min(1 + M[i - 1][j], 1 + M[i][j - 1])
 
     return M[n-1][n-1]
 
