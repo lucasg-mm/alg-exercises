@@ -1,9 +1,10 @@
 import fileinput
-from time import time
 # usar https://pypi.org/project/bitarray/ para tentar aumentar eficiência depois
 
 sieve = []
 primes = []
+max_dividend = {}
+min_non_dividend = {}
 
 def get_sieve(limit):
     """
@@ -63,6 +64,19 @@ def print_test_result(n, m):
     """
     Outputs a line stating whether or not m divides n!, in the specified format.
     """
+    global max_dividend, min_non_dividend
+
+    if m not in max_dividend:
+       max_dividend[m] = 0
+    elif max_dividend[m] and max_dividend[m] <= n:
+        print(f"{m} divides {n}!")
+        return       
+
+    if m not in min_non_dividend:
+        min_non_dividend[m] = 0    
+    elif min_non_dividend[m] and min_non_dividend[m] >= n:
+        print(f"{m} does not divide {n}!")
+        return
 
     m_prime_factors = get_prime_factors(m)
     result = "divides"
@@ -73,16 +87,22 @@ def print_test_result(n, m):
             m_pf = tuple(m_prime_factors)
             m_greatest_pf = m_pf[-1]
             for f in range(n, 1, -1):
+                if max_dividend[m] and max_dividend[m] <= f:
+                    print(f"{m} divides {n}!")
+                    return
+                if min_non_dividend[m] and min_non_dividend[m] >= f:
+                    print(f"{m} does not divide {n}!")
+                    return                                       
                 if m_greatest_pf > f or result == "divides":
                     break
-                n_prime_factors = get_prime_factors(f)   
+                n_prime_factors = get_prime_factors(f)  
 
                 for factor in m_pf:
                     if factor in n_prime_factors: 
                         m_prime_factors[factor] -= n_prime_factors[factor]               
 
                         if m_prime_factors[factor] <= 0:
-                            m_prime_factors.pop(factor)
+                            del m_prime_factors[factor]
                             if not m_prime_factors:
                                 result = "divides"
                                 break
@@ -92,19 +112,24 @@ def print_test_result(n, m):
         if m != 1 and (m > n or m == 0):
             result = "does not divide"                                   
 
+    if result == "divides":
+        max_dividend[m] = max(max_dividend[m], n)
+    elif result == "does not divide":
+        if min_non_dividend[m] == 0:
+            min_non_dividend[m] = n
+        else:    
+            min_non_dividend[m] = min(min_non_dividend[m], n)
+
     print(f"{m} {result} {n}!")
 
 
 def main():
-    start = time()
     get_sieve(65536)
     for line in fileinput.input():
         params = line.split()
         n = int(params[0])
         m = int(params[1])
         print_test_result(n, m)
-    end = time()    
-    print(f"sieve: {end - start}")  
 
 
 if __name__ == "__main__":
