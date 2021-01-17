@@ -1,0 +1,22 @@
+Given a value V, we want to make the change to V. An infinite set of coins M = {M1, M2, .., Mm} each of a value is given.
+What is the minimum number of coins that make up the V value?
+
+
+Input
+
+The input consists of a number of N test cases.
+Subsequent lines are made up of integer values, in the following order:
+The value V (0 <= V <= 100000); the quantity of coins Q (1 <= Q <= 30) and Q integer values m (1 <= m <= 100)
+
+The problem may not be solved. In this case print 'no solution'
+
+
+Input
+
+2
+10 2 1 5
+7 4 3 4 5 1
+
+Output
+2
+2

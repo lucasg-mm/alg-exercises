@@ -1,0 +1,27 @@
+Counting the amount of inversions
+
+
+Formally, two elements of a vector form an inversion if
+a [i]> a [j] and i <j.
+
+Make a program, using the divide and conquer paradigm that counts
+the number of inversions in a vector.
+
+The vector is an integer and can contain up to 10,000 elements
+
+INPUT
+
+The first line of the entry contains the number of test cases (1 <= N <= 100)
+Each of the subsequent N lines contains an integer C (1 <= C <= 10000) followed by
+of the C integer values of the vector.
+
+INPUT SAMPLE:
+
+2
+50 37 7 2 14 35 47 10 24 44 17 34 11 16 48 1 39 6 33 43 26 40 4 28 5 38 41 42 12 13 21 29 18 3 19 0 32 46 27 31 25 15 36 20 8 9 49 22 23 30 45
+5 1 20 6 4 5
+
+
+OUTPUT:
+
+590
